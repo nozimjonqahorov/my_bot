@@ -11,18 +11,6 @@ from states.student_states import StudentState
 
 router = Router()
 
-# Student /start command
-@router.message(Command('start'))
-async def cmd_start_student(message: Message, state: FSMContext):
-    role = await get_user_role(message.from_user.id)
-    if role == 'teacher':
-        # forward to teacher start (handled in teacher router)
-        return
-    await message.answer(
-        "Assalomu alaykum! Siz talaba sifatida savol yuborishingiz mumkin.",
-        reply_markup=student_start_keyboard()
-    )
-
 # Ask anonymity
 @router.message(F.text.in_({"✍️ Savol yoʻlash", "Savol yoʻlash"}))
 async def ask_anonymity(message: Message, state: FSMContext):

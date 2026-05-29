@@ -2,7 +2,8 @@ import os
 import asyncio
 import logging
 from aiogram import Bot, Dispatcher
-from aiogram.types import BotCommand
+from aiogram.filters import Command
+from aiogram.types import BotCommand, Message
 from aiogram.client.default import DefaultBotProperties
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiohttp import web
@@ -10,6 +11,8 @@ from config import BOT_TOKEN
 from db import init_db
 from handlers.student import router as student_router
 from handlers.teacher import router as teacher_router
+from utils.keyboards import student_start_keyboard, teacher_start_keyboard
+from utils.helpers import get_user_role
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -40,6 +43,18 @@ async def main():
 
     dp.include_router(teacher_router)
     dp.include_router(student_router)
+
+    async def cmd_start(message: Message):
+        role = await get_user_role(message.from_user.id)
+        if role == 'teacher':
+            await message.answer("Assalomu alaykum, ustoz!", reply_markup=teacher_start_keyboard())
+        else:
+            await message.answer(
+                "Assalomu alaykum! Siz talaba sifatida savol yuborishingiz mumkin.",
+                reply_markup=student_start_keyboard()
+            )
+
+    dp.message.register(cmd_start, Command('start'))
 
     await init_db()
     await set_commands(bot)

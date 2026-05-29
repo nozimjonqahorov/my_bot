@@ -29,15 +29,6 @@ async def setup_teacher(message: Message):
         await session.commit()
     await message.answer("✅ Siz bosh ustoz (teacher) sifatida ro'yxatdan o'tdingiz!")
 
-# Teacher start menu
-@router.message(Command('start'))
-async def cmd_start_teacher(message: Message):
-    role = await get_user_role(message.from_user.id)
-    if role != 'teacher':
-        # Not a teacher, ignore – student router will handle
-        return
-    await message.answer("Assalomu alaykum, ustoz!", reply_markup=teacher_start_keyboard())
-
 # List pending questions
 @router.message(F.text.in_({"📥 Kelgan savollar", "Kelgan savollar"}))
 async def list_pending(message: Message):
