@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Environment variables (MUHIM - token chiqib ketmasin!)
+.env
+
+# Database (lokal ma'lumotlar)
+bot_data.db
+*.db
+*.sqlite3
+
+# VS Code
+.vscode/
+
+# Qodo
+.qodo/
+
+# Sixth
+.sixth/
+
+# Logs
+*.log
+
+# OS fayllar
+.DS_Store
+Thumbs.db
