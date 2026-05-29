@@ -2,3 +2,4 @@ aiogram>=3.4.0
 SQLAlchemy>=2.0,<3.0
 asyncpg
 python-dotenv==1.0.1
+aiohttp>=3.9.0  
